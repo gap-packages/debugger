@@ -265,8 +265,8 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("debugger.c", ADD_BREAKPOINT, 3, "file, line, func"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_STATEMENT_BREAKPOINT, 1, "func"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_ENTER_FUNCTION_BREAKPOINT, 1, "func"),
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_LEAVE_FUNCTION_BREAKPOINT, 1, "func"),    
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_BREAKPOINT, 2, "file, line"),  
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_LEAVE_FUNCTION_BREAKPOINT, 1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_BREAKPOINT, 2, "file, line"),
 	GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_ALL_BREAKPOINTS, 0, ""),
     { 0 } /* Finish with an empty entry */
 
@@ -302,7 +302,7 @@ static Int InitLibrary( StructInitInfo *module )
     SignalSyLongjmp(resetDebuggerOnLongjmp);
     SignalBreakloop(resetDebuggerOnBreakLoop);
 
-    
+
     /* return success                                                      */
     return 0;
 }
