@@ -316,18 +316,12 @@ struct GAP_maker
 { };
 
 template<>
-struct GAP_maker<int>
+struct GAP_maker<Int>
 {
     Obj operator()(int i)
     { return INTOBJ_INT(i); }
 };
 
-template<>
-struct GAP_maker<long long>
-{
-    Obj operator()(long long i)
-    { return INTOBJ_INT(i); }
-};
 
 template<>
 struct GAP_maker<bool>
