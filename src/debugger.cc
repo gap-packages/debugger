@@ -26,6 +26,16 @@ std::vector<std::pair<Int, Int> > break_points;
 // In a GAP object so they are not GCed accidentally.
 Obj breakpoint_functions;
 
+// Function to call whenever moving to a new statement.
+Obj step_function;
+
+// Function to call whenever entering a function.
+Obj enter_function;
+
+// Function to call whenever leaving a function.
+Obj leave_function;
+
+
 // The last location -- so we do not keep triggering on the same line.
 static std::pair<Int, Int> prevlocation;
 
@@ -33,6 +43,7 @@ static std::pair<Int, Int> prevlocation;
 // or inside the break loop, so we should not invoke any more debugging
 // functions, to avoid infinite loops.
 static Int disable_debugger;
+
 
 // If GAP ever longjmps, let's re-enable the debugger. This isn't perfect,
 // but stops the debugger apparently dying.
@@ -42,6 +53,52 @@ void resetDebuggerOnLongjmp()
 
 void resetDebuggerOnBreakLoop(Int i)
 { disable_debugger = i; }
+}
+
+Obj ACTIVATE_DEBUGGING(Obj self);
+Obj DEACTIVATE_DEBUGGING(Obj self);
+
+// Check if we should enable or disable hooks
+// TODO: Improve, error checking
+void ConsiderEnableDisableDebugging()
+{
+    bool breakpoint = (!break_points.empty() || step_function ||
+                        enter_function || leave_function);
+    if(breakpoint)
+        ACTIVATE_DEBUGGING(0);
+    else
+        DEACTIVATE_DEBUGGING(0);
+}
+
+// Call a function, suspending debugging while it runs
+static void callDebugFunction0(Obj funcobj)
+{
+    disable_debugger = 1;
+    typedef Obj(*FuncPtr)(Obj);
+    ObjFunc hdlrfunc = HDLR_FUNC(funcobj,0);
+    FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
+    (*funcptr)(funcobj);
+    disable_debugger = 0;
+}
+
+static void callDebugFunction1(Obj funcobj, Obj val)
+{
+    disable_debugger = 1;
+    typedef Obj(*FuncPtr)(Obj, Obj);
+    ObjFunc hdlrfunc = HDLR_FUNC(funcobj,1);
+    FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
+    (*funcptr)(funcobj, val);
+    disable_debugger = 0;
+}
+
+static void callDebugFunction2(Obj funcobj, Obj val1, Obj val2)
+{
+    disable_debugger = 1;
+    typedef Obj(*FuncPtr)(Obj, Obj, Obj);
+    ObjFunc hdlrfunc = HDLR_FUNC(funcobj,2);
+    FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
+    (*funcptr)(funcobj, val1, val2);
+    disable_debugger = 0;
 }
 
 void debugVisitStat(Stat stat)
@@ -58,6 +115,8 @@ void debugVisitStat(Stat stat)
     // Check we have moved line
     if(prevlocation == location)
         return;
+    if(step_function)
+        callDebugFunction2(step_function, INTOBJ_INT(file), INTOBJ_INT(line));
     prevlocation = location;
 
     //fprintf(stderr,"Y\n");
@@ -68,17 +127,24 @@ void debugVisitStat(Stat stat)
         {
             //fprintf(stderr,"!!%d,%d,%d\n", file, line,i);
             hit = true;
-            disable_debugger = 1;
-            Obj funcobj = ELM_PLIST(breakpoint_functions, i+1);
-            typedef Obj(*FuncPtr)(Obj);
-            ObjFunc hdlrfunc = HDLR_FUNC(funcobj,0);
-            FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
-            (*funcptr)(funcobj);
-            disable_debugger = 0;
+            callDebugFunction0(ELM_PLIST(breakpoint_functions, i+1));
         }
     }
     //if(hit) fprintf(stderr,"!!!\n");
 }
+
+void debugEnterFunction(Obj func)
+{
+    if(enter_function && !disable_debugger)
+        callDebugFunction1(enter_function, func);
+}
+
+void debugLeaveFunction(Obj func)
+{
+    if(leave_function && !disable_debugger)
+        callDebugFunction1(leave_function, func);
+}
+
 
 Obj ADD_BREAKPOINT(Obj self, Obj objfile, Obj objline, Obj func)
 {
@@ -90,9 +156,37 @@ Obj ADD_BREAKPOINT(Obj self, Obj objfile, Obj objline, Obj func)
     SET_LEN_PLIST(breakpoint_functions, breaklen);
     SET_ELM_PLIST(breakpoint_functions, breaklen, func);
     CHANGED_BAG(breakpoint_functions);
-
+    ConsiderEnableDisableDebugging();
     return 0;
 }
+
+static Obj SetValue(Obj* value, Obj func)
+{
+    if(func == Fail)
+        *value = 0;
+    else
+    {
+        if(!IS_FUNC(func))
+        {
+            ErrorMayQuit("Breakpoint must be a function",0,0);
+        }
+        else
+        {
+            *value = func;
+        }
+    }
+    ConsiderEnableDisableDebugging();
+    return 0;
+}
+
+Obj SET_STATEMENT_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&step_function, func); }
+
+Obj SET_ENTER_FUNCTION_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&enter_function, func); }
+
+Obj SET_LEAVE_FUNCTION_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&leave_function, func); }
 
 Obj CLEAR_BREAKPOINT(Obj self, Obj objfile, Obj objline)
 {
@@ -118,12 +212,14 @@ Obj CLEAR_BREAKPOINT(Obj self, Obj objfile, Obj objline)
             i--;
         }
     }
+    ConsiderEnableDisableDebugging();
     return removed;
 }
 
 Obj CLEAR_ALL_BREAKPOINTS(Obj self)
 {
     breakpoint_functions = NEW_PLIST(T_PLIST, 0);
+    ConsiderEnableDisableDebugging();
     return 0;
 }
 
@@ -135,8 +231,8 @@ Obj GET_BREAKPOINTS(Obj self)
 struct InterpreterHooks debugHooks =
 {
     debugVisitStat,
-    0,
-    0,
+    debugEnterFunction,
+    debugLeaveFunction,
     0,
     "debugger"
 };
@@ -153,7 +249,6 @@ Obj DEACTIVATE_DEBUGGING(Obj self)
     return True;
 }
 
-
 typedef Obj (* GVarFunc)(/*arguments*/);
 
 #define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
@@ -168,7 +263,10 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("debugger.c", DEACTIVATE_DEBUGGING, 0, "param, param2"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", GET_BREAKPOINTS, 0, ""),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", ADD_BREAKPOINT, 3, "file, line, func"),
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_BREAKPOINT, 2, "file, line"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_STATEMENT_BREAKPOINT, 1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_ENTER_FUNCTION_BREAKPOINT, 1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_LEAVE_FUNCTION_BREAKPOINT, 1, "func"),    
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_BREAKPOINT, 2, "file, line"),  
 	GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_ALL_BREAKPOINTS, 0, ""),
     { 0 } /* Finish with an empty entry */
 
@@ -183,6 +281,9 @@ static Int InitKernel( StructInitInfo *module )
     InitHdlrFuncsFromTable( GVarFuncs );
 
     InitGlobalBag(&breakpoint_functions, "src/debugger.cc:breakpoint_functions");
+    InitGlobalBag(&step_function, "src/debugger.cc:step_function");
+    InitGlobalBag(&enter_function, "src/debugger.cc:enter_function");
+    InitGlobalBag(&leave_function, "src/debugger.cc:leave_function");
 
     /* return success                                                      */
     return 0;
@@ -200,6 +301,8 @@ static Int InitLibrary( StructInitInfo *module )
 
     SignalSyLongjmp(resetDebuggerOnLongjmp);
     SignalBreakloop(resetDebuggerOnBreakLoop);
+
+    
     /* return success                                                      */
     return 0;
 }

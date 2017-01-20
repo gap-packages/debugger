@@ -35,10 +35,6 @@ function(fileend, line, infunc...)
 		Print("Adding breakpoint to ", filelist[i], ":", line,"\n");
 		ADD_BREAKPOINT(i, line, func);
 	od;
-
-	if Length(GET_BREAKPOINTS()) > 0 then
-		ACTIVATE_DEBUGGING();
-	fi;
 end);
 
 InstallGlobalFunction( "ClearBreakpoint",
@@ -61,17 +57,10 @@ function(fileend, line)
 			Print("Removing breakpoint from ", filelist[i], ":", line);
 		fi;
 	od;
-
-	if Length(GET_BREAKPOINTS()) then
-		DEACTIVATE_DEBUGGING();
-	fi;
 end);
 
 InstallGlobalFunction( "ClearAllBreakpoints",
-	function()
-		CLEAR_ALL_BREAKPOINTS();
-		DEACTIVATE_DEBUGGING();
-end);
+	CLEAR_ALL_BREAKPOINTS);
 
 
 InstallGlobalFunction( "ListBreakpoints",
