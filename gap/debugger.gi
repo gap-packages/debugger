@@ -62,6 +62,14 @@ end);
 InstallGlobalFunction( "ClearAllBreakpoints",
 	CLEAR_ALL_BREAKPOINTS);
 
-
 InstallGlobalFunction( "ListBreakpoints",
-	GET_BREAKPOINTS);
+       GET_BREAKPOINTS);
+
+InstallGlobalFunction( "BreakEveryLine",
+	SET_STATEMENT_BREAKPOINT);
+
+InstallGlobalFunction( "BreakEnterFunction",
+	SET_ENTER_FUNCTION_BREAKPOINT);
+
+InstallGlobalFunction( "BreakLeaveFunction",
+	SET_LEAVE_FUNCTION_BREAKPOINT);
