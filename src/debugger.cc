@@ -219,6 +219,7 @@ Obj CLEAR_BREAKPOINT(Obj self, Obj objfile, Obj objline)
 Obj CLEAR_ALL_BREAKPOINTS(Obj self)
 {
     breakpoint_functions = NEW_PLIST(T_PLIST, 0);
+    break_points.clear();
     ConsiderEnableDisableDebugging();
     return 0;
 }

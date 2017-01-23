@@ -1,7 +1,6 @@
 gap> LoadPackage("debugger", false);
 true
 gap> ClearAllBreakpoints();
-gap> testdir:= DirectoriesPackageLibrary( "debugger", "tst" )[1];;
 gap> Read("testcode1.g");
 gap> AddBreakpoint("testcode1.g", 5, function() Print("5:",gvar,"\n"); end);
 Adding breakpoint to testcode1.g:5

@@ -1,5 +1,6 @@
 gap> LoadPackage("debugger", false);
 true
+gap> ClearAllBreakpoints();
 gap> Read("testcode2.g");
 gap> func := function(x,y) Print("::", y, ":", gvar2, "\n"); end;;
 gap> BreakEveryLine(func); f(); BreakEveryLine(fail);

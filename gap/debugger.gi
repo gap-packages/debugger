@@ -18,7 +18,7 @@ function(fileend, line, infunc...)
 	fi;
 
 	if Length(infunc) = 0 then
-		func := Error("Breakpoint Reached!");
+		func := fail;
 	else
 		if Length(infunc) = 1 and IsFunction(infunc[1]) then
 			func := infunc[1];
@@ -33,7 +33,13 @@ function(fileend, line, infunc...)
 
 	for i in hitfiles do
 		Print("Adding breakpoint to ", filelist[i], ":", line,"\n");
-		ADD_BREAKPOINT(i, line, func);
+		if func = fail then
+			ADD_BREAKPOINT(i, line, function()
+										Error("Breakpoint ", filelist[i], ":", line);
+									end);
+		else
+			ADD_BREAKPOINT(i, line, func);
+		fi;
 	od;
 end);
 
