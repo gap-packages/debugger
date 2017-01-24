@@ -27,13 +27,22 @@ std::vector<std::pair<Int, Int> > break_points;
 Obj breakpoint_functions;
 
 // Function to call whenever moving to a new statement.
-Obj step_function;
+Obj every_step_function;
+
+// Function to call next time a new statement.
+Obj next_step_function;
 
 // Function to call whenever entering a function.
-Obj enter_function;
+Obj every_enter_function;
+
+// Function to call next time entering a function.
+Obj next_enter_function;
 
 // Function to call whenever leaving a function.
-Obj leave_function;
+Obj every_leave_function;
+
+// Function to call next time leaving a function.
+Obj next_leave_function;
 
 
 // The last location -- so we do not keep triggering on the same line.
@@ -62,8 +71,10 @@ Obj DEACTIVATE_DEBUGGING(Obj self);
 // TODO: Improve, error checking
 void ConsiderEnableDisableDebugging()
 {
-    bool breakpoint = (!break_points.empty() || step_function ||
-                        enter_function || leave_function);
+    bool breakpoint = (!break_points.empty() || 
+                        every_step_function || next_step_function ||
+                        every_enter_function || next_enter_function ||
+                        every_leave_function || next_leave_function);
     if(breakpoint)
         ACTIVATE_DEBUGGING(0);
     else
@@ -115,8 +126,14 @@ void debugVisitStat(Stat stat)
     // Check we have moved line
     if(prevlocation == location)
         return;
-    if(step_function)
-        callDebugFunction2(step_function, INTOBJ_INT(file), INTOBJ_INT(line));
+    if(next_step_function)
+    {
+        Obj store = next_step_function;
+        next_step_function = 0;
+        callDebugFunction0(store);
+    }
+    if(every_step_function)
+        callDebugFunction2(every_step_function, INTOBJ_INT(file), INTOBJ_INT(line));
     prevlocation = location;
 
     //fprintf(stderr,"Y\n");
@@ -135,14 +152,26 @@ void debugVisitStat(Stat stat)
 
 void debugEnterFunction(Obj func)
 {
-    if(enter_function && !disable_debugger)
-        callDebugFunction1(enter_function, func);
+    if(next_enter_function && !disable_debugger)
+    {
+        Obj store = next_enter_function;
+        next_enter_function = 0;
+        callDebugFunction1(next_enter_function, func);
+    }
+    if(every_enter_function && !disable_debugger)
+        callDebugFunction1(every_enter_function, func);
 }
 
 void debugLeaveFunction(Obj func)
 {
-    if(leave_function && !disable_debugger)
-        callDebugFunction1(leave_function, func);
+    if(next_leave_function && !disable_debugger)
+    {
+        Obj store = next_leave_function;
+        next_leave_function = 0;
+        callDebugFunction1(next_leave_function, func);
+    }
+    if(every_leave_function && !disable_debugger)
+        callDebugFunction1(every_leave_function, func);
 }
 
 
@@ -160,33 +189,58 @@ Obj ADD_BREAKPOINT(Obj self, Obj objfile, Obj objline, Obj func)
     return 0;
 }
 
-static Obj SetValue(Obj* value, Obj func)
+// We do this at the C level rather than GAP, as this function is used when
+// people are enabling, or disabling breakpoints, so we want to run as little
+// GAP as possible!
+static Obj SetValue(Obj* value, Obj funclist, const char* defaultfunc)
 {
-    if(func == Fail)
-        *value = 0;
-    else
+    if(LEN_PLIST(funclist) == 0)
     {
-        if(!IS_FUNC(func))
-        {
-            ErrorMayQuit("Breakpoint must be a function",0,0);
-        }
+        *value = VAL_GVAR(GVarName(defaultfunc));
+    }
+    else if(LEN_PLIST(funclist) == 1)
+    {
+        Obj func = ELM_PLIST(funclist, 1);
+        if(func == Fail)
+            *value = 0;
         else
         {
-            *value = func;
+            if(!IS_FUNC(func))
+            {
+                ErrorMayQuit("Breakpoint must be a function (or fail)",0,0);
+            }
+            else
+            {
+                *value = func;
+            }
         }
+    }
+    else
+    {
+        ErrorMayQuit("Error: Maximum of one argument",0,0);
     }
     ConsiderEnableDisableDebugging();
     return 0;
 }
 
-Obj SET_STATEMENT_BREAKPOINT(Obj self, Obj func)
-{ return SetValue(&step_function, func); }
+Obj SET_NEXT_STATEMENT_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&next_step_function, func, "BREAKPOINT_NO_ARGS"); }
 
-Obj SET_ENTER_FUNCTION_BREAKPOINT(Obj self, Obj func)
-{ return SetValue(&enter_function, func); }
+Obj SET_EVERY_STATEMENT_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&every_step_function, func, "BREAKPOINT_DFEAULT_FILELINE"); }
 
-Obj SET_LEAVE_FUNCTION_BREAKPOINT(Obj self, Obj func)
-{ return SetValue(&leave_function, func); }
+Obj SET_NEXT_ENTER_FUNCTION_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&next_enter_function, func, "BREAKPOINT_DEFAULT_FUNCTION"); }
+
+Obj SET_EVERY_ENTER_FUNCTION_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&every_enter_function, func, "BREAKPOINT_DEFAULT_FUNCTION"); }
+
+Obj SET_NEXT_LEAVE_FUNCTION_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&next_leave_function, func, "BREAKPOINT_DEFAULT_FUNCTION"); }
+
+Obj SET_EVERY_LEAVE_FUNCTION_BREAKPOINT(Obj self, Obj func)
+{ return SetValue(&every_leave_function, func, "BREAKPOINT_DEFAULT_FUNCTION"); }
+
 
 Obj CLEAR_BREAKPOINT(Obj self, Obj objfile, Obj objline)
 {
@@ -264,9 +318,12 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("debugger.c", DEACTIVATE_DEBUGGING, 0, "param, param2"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", GET_BREAKPOINTS, 0, ""),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", ADD_BREAKPOINT, 3, "file, line, func"),
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_STATEMENT_BREAKPOINT, 1, "func"),
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_ENTER_FUNCTION_BREAKPOINT, 1, "func"),
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_LEAVE_FUNCTION_BREAKPOINT, 1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_EVERY_STATEMENT_BREAKPOINT, -1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_NEXT_STATEMENT_BREAKPOINT, -1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_EVERY_ENTER_FUNCTION_BREAKPOINT, -1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_NEXT_ENTER_FUNCTION_BREAKPOINT, -1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_EVERY_LEAVE_FUNCTION_BREAKPOINT, -1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_NEXT_LEAVE_FUNCTION_BREAKPOINT, -1, "func"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_BREAKPOINT, 2, "file, line"),
 	GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_ALL_BREAKPOINTS, 0, ""),
     { 0 } /* Finish with an empty entry */
@@ -282,9 +339,12 @@ static Int InitKernel( StructInitInfo *module )
     InitHdlrFuncsFromTable( GVarFuncs );
 
     InitGlobalBag(&breakpoint_functions, "src/debugger.cc:breakpoint_functions");
-    InitGlobalBag(&step_function, "src/debugger.cc:step_function");
-    InitGlobalBag(&enter_function, "src/debugger.cc:enter_function");
-    InitGlobalBag(&leave_function, "src/debugger.cc:leave_function");
+    InitGlobalBag(&next_step_function, "src/debugger.cc:next_step_function");
+    InitGlobalBag(&every_step_function, "src/debugger.cc:every_step_function");
+    InitGlobalBag(&next_enter_function, "src/debugger.cc:next_enter_function");
+    InitGlobalBag(&every_enter_function, "src/debugger.cc:every_enter_function");
+    InitGlobalBag(&next_leave_function, "src/debugger.cc:next_leave_function");
+    InitGlobalBag(&every_leave_function, "src/debugger.cc:every_leave_function");
 
     /* return success                                                      */
     return 0;

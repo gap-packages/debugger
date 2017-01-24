@@ -1,3 +1,5 @@
+
+
 InstallGlobalFunction( "AddBreakpoint",
 function(fileend, line, infunc...)
 	local func, i, hitfiles, filelist;
@@ -72,10 +74,34 @@ InstallGlobalFunction( "ListBreakpoints",
        GET_BREAKPOINTS);
 
 InstallGlobalFunction( "BreakEveryLine",
-	SET_STATEMENT_BREAKPOINT);
+	SET_EVERY_STATEMENT_BREAKPOINT);
 
-InstallGlobalFunction( "BreakEnterFunction",
-	SET_ENTER_FUNCTION_BREAKPOINT);
+InstallGlobalFunction( "BreakNextLine",
+	SET_NEXT_STATEMENT_BREAKPOINT);
 
-InstallGlobalFunction( "BreakLeaveFunction",
-	SET_LEAVE_FUNCTION_BREAKPOINT);
+InstallGlobalFunction( "BreakEveryEnterFunction",
+	SET_EVERY_ENTER_FUNCTION_BREAKPOINT);
+
+InstallGlobalFunction( "BreakNextEnterFunction",
+	SET_NEXT_ENTER_FUNCTION_BREAKPOINT);
+
+InstallGlobalFunction( "BreakEveryLeaveFunction",
+	SET_EVERY_LEAVE_FUNCTION_BREAKPOINT);
+
+InstallGlobalFunction( "BreakNextLeaveFunction",
+	SET_NEXT_LEAVE_FUNCTION_BREAKPOINT);
+
+# These functions are all accessed from the C level,
+# and used as standard functions for breakpoints.
+
+BREAKPOINT_DEFAULT_FILELINE := function(file, line)
+	Error("Breakpoint ", GET_FILENAME_CACHE()[file], ":", line);
+end;
+
+BREAKPOINT_DEFAULT_FUNCTION := function(func)
+	Error("Breakpoint ", NAME_FUNC(func), " ", LocationFunc(func));
+end;
+
+BREAKPOINT_NO_ARGS := function()
+	Error("Breakpoint");
+end;

@@ -30,19 +30,40 @@ DeclareGlobalFunction( "ClearAllBreakpoints" );
 #!   called.
 DeclareGlobalFunction( "ListBreakpoints" );
 
+#! @Arguments [function]
+#! @Description
+#!   Triggers <A>function</A> next time a new line of code
+#!   begins execution. by default, <A>function</A> will enter the
+#!   break loop.
+#! 
+#!   Breaking on the next line is disabled by passing <B>fail</B>.
+#!
+#!   <A>function</A>, if defined, should accept no arguments.
+DeclareGlobalFunction( "BreakNextLine" );
 
 #! @Arguments [function]
 #! @Description
 #!   Triggers <A>function</A> every time a new line of code
-#!   is executed. by default, <A>function</A> will enter the
+#!   begin execution. by default, <A>function</A> will enter the
 #!   break loop. 
 #! 
-#!   Breaking every line is disabled by passing <B>fail</B>.
+#!   Breaking on every line is disabled by passing <B>fail</B>.
 #!
 #!   <A>function</A>, if defined, should accept two arguments. These
 #!   are the fileid and line number. The fileid is an index into
 #!   the array of files returned by <F>GET_FILENAME_CACHE()</F>.
 DeclareGlobalFunction( "BreakEveryLine" );
+
+#! @Arguments [func]
+#! @Description
+#!   Calls <A>func</A> before the next time execution of a function begins.
+#!   By default, <A>func</A> will enter the break loop.
+#!
+#!   Breaking on entry to the next function is disabled by passing <B>fail</B>.
+#!
+#!   <A>func</A>, if defined, should accept one argument, which
+#!   will be the function being called.
+DeclareGlobalFunction( "BreakNextEnterFunction" );
 
 #! @Arguments [func]
 #! @Description
@@ -53,8 +74,18 @@ DeclareGlobalFunction( "BreakEveryLine" );
 #!
 #!   <A>func</A>, if defined, should accept one argument, which
 #!   will be the function being called.
-DeclareGlobalFunction( "BreakEnterFunction" );
+DeclareGlobalFunction( "BreakEveryEnterFunction" );
 
+#! @Arguments [func]
+#! @Description
+#!   Calls <A>func</A> before the next time execution of a function ends.
+#!   By default, <A>func</A> will enter the break loop.
+#!
+#!   Breaking on exit of the next function is disabled by passing <B>fail</B>.
+#!
+#!   <A>func</A>, if defined, should accept one argument, which
+#!   will be the function which is returning.
+DeclareGlobalFunction( "BreakNextLeaveFunction" );
 
 #! @Arguments [func]
 #! @Description
@@ -65,4 +96,4 @@ DeclareGlobalFunction( "BreakEnterFunction" );
 #!
 #!   <A>func</A>, if defined, should accept one argument, which
 #!   will be the function which is returning.
-DeclareGlobalFunction( "BreakLeaveFunction" );
+DeclareGlobalFunction( "BreakEveryLeaveFunction" );
