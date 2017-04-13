@@ -294,14 +294,12 @@ struct InterpreterHooks debugHooks =
 
 Obj ACTIVATE_DEBUGGING(Obj self)
 {
-    activateHooks(&debugHooks);
-    return True;
+    return activateHooks(&debugHooks) ? True : False;
 }
 
 Obj DEACTIVATE_DEBUGGING(Obj self)
 {
-    deactivateHooks();
-    return True;
+    return deactivateHooks(&debugHooks) ? True : False;
 }
 
 typedef Obj (* GVarFunc)(/*arguments*/);
