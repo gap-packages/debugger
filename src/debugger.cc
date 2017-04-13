@@ -294,12 +294,12 @@ struct InterpreterHooks debugHooks =
 
 Obj ACTIVATE_DEBUGGING(Obj self)
 {
-    return activateHooks(&debugHooks) ? True : False;
+    return ActivateHooks(&debugHooks) ? True : False;
 }
 
 Obj DEACTIVATE_DEBUGGING(Obj self)
 {
-    return deactivateHooks(&debugHooks) ? True : False;
+    return DeactivateHooks(&debugHooks) ? True : False;
 }
 
 typedef Obj (* GVarFunc)(/*arguments*/);
@@ -358,8 +358,8 @@ static Int InitLibrary( StructInitInfo *module )
 
     breakpoint_functions = NEW_PLIST(T_PLIST, 0);
 
-    SignalSyLongjmp(resetDebuggerOnLongjmp);
-    SignalBreakloop(resetDebuggerOnBreakLoop);
+    RegisterSyLongjmpObserver(resetDebuggerOnLongjmp);
+    RegisterBreakloopObserver(resetDebuggerOnBreakLoop);
 
 
     /* return success                                                      */
