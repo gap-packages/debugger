@@ -19,6 +19,8 @@ extern "C" {
 #include <vector>
 #include <utility>
 
+#include <iostream>
+
 // List of break points
 std::vector<std::pair<Int, Int> > break_points;
 
@@ -302,6 +304,54 @@ Obj DEACTIVATE_DEBUGGING(Obj self)
     return DeactivateHooks(&debugHooks) ? True : False;
 }
 
+static int indentation_level = 0;
+
+Obj TRACE_METHOD_ENTER_FUNCTION( Obj self, Obj func )
+{
+    Obj name_function_obj = NAME_FUNC( func );
+    
+    char* name_function;
+    
+    if( name_function_obj == 0 ){
+        // FIXME: Do not skip unknown functions
+        return True;
+    }else{
+        name_function = CSTR_STRING( name_function_obj );
+    }
+    
+    for( int i=0; i < 2*indentation_level; i++)
+        std::cout << " ";
+    std::cout << "=> Entering " << name_function << std::endl;
+    
+    indentation_level+=1;
+    
+    return True;
+    
+}
+
+Obj TRACE_METHOD_EXIT_FUNCTION( Obj self, Obj func )
+{
+    Obj name_function_obj = NAME_FUNC( func );
+    
+    char* name_function;
+    
+    if( name_function_obj == 0 ){
+        // FIXME: Do not skip unknown functions
+        return True;
+    }else{
+        name_function = CSTR_STRING( name_function_obj );
+    }
+    
+    indentation_level-=1;
+    
+    for( int i=0; i < 2*indentation_level; i++)
+        std::cout << " ";
+    std::cout << "<= Leaving " << name_function << std::endl;
+    
+    return True;
+    
+}
+
 typedef Obj (* GVarFunc)(/*arguments*/);
 
 #define GVAR_FUNC_TABLE_ENTRY(srcfile, name, nparam, params) \
@@ -324,6 +374,8 @@ static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_NEXT_LEAVE_FUNCTION_BREAKPOINT, -1, "func"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_BREAKPOINT, 2, "file, line"),
 	GVAR_FUNC_TABLE_ENTRY("debugger.c", CLEAR_ALL_BREAKPOINTS, 0, ""),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", TRACE_METHOD_ENTER_FUNCTION, 1, "func"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", TRACE_METHOD_EXIT_FUNCTION, 1, "func"),
     { 0 } /* Finish with an empty entry */
 
 };

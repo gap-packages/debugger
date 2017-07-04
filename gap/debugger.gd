@@ -97,3 +97,12 @@ DeclareGlobalFunction( "BreakNextLeaveFunction" );
 #!   <A>func</A>, if defined, should accept one argument, which
 #!   will be the function which is returning.
 DeclareGlobalFunction( "BreakEveryLeaveFunction" );
+
+#! @Arguments func,arg_list
+#! @Description
+#!  Calls <A>func</A> with arguments <A>arg_list</A> and displays
+#!  a list of functions called and exited in the order of calls and exits.
+#!
+#!  The function does not return anything. Furthermore, functions without
+#!  names are skipped.
+DeclareGlobalFunction( "TraceFunctionCalls" );
