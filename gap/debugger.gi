@@ -105,3 +105,21 @@ end;
 BREAKPOINT_NO_ARGS := function()
 	Error("Breakpoint");
 end;
+
+InstallGlobalFunction( TraceFunctionCalls,
+  function( func, arg_list )
+    local enter_function, exit_function, return_value;
+    
+    if not IsList( arg_list ) then
+        arg_list := [ arg_list ];
+    fi;
+    
+    BreakEveryEnterFunction( TRACE_METHOD_ENTER_FUNCTION );
+    BreakEveryLeaveFunction( TRACE_METHOD_EXIT_FUNCTION );
+    
+    CallFuncList( func, arg_list );
+    
+    BreakEveryEnterFunction( fail );
+    BreakEveryLeaveFunction( fail );
+    
+end );
