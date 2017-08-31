@@ -119,7 +119,6 @@ void debugVisitStat(Stat stat)
     Int file = FILENAMEID_STAT(stat);
     Int line = LINE_STAT(stat);
     std::pair<Int, Int> location(file, line);
-    //fprintf(stderr,"XX%d,%d,%d,%d\n", file, line, prevlocation.first, prevlocation.second);
     // skip if not valid
     if(location == std::pair<Int,Int>(0,0))
         return;
@@ -136,18 +135,15 @@ void debugVisitStat(Stat stat)
         callDebugFunction2(every_step_function, INTOBJ_INT(file), INTOBJ_INT(line));
     prevlocation = location;
 
-    //fprintf(stderr,"Y\n");
     bool hit = false;
     for(int i = 0; i < break_points.size(); ++i)
     {
         if(break_points[i] == location)
         {
-            //fprintf(stderr,"!!%d,%d,%d\n", file, line,i);
             hit = true;
             callDebugFunction0(ELM_PLIST(breakpoint_functions, i+1));
         }
     }
-    //if(hit) fprintf(stderr,"!!!\n");
 }
 
 void debugEnterFunction(Obj func)
