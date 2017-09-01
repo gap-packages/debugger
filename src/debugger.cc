@@ -223,7 +223,7 @@ Obj SET_NEXT_STATEMENT_BREAKPOINT(Obj self, Obj func)
 { return SetValue(&next_step_function, func, "BREAKPOINT_NO_ARGS"); }
 
 Obj SET_EVERY_STATEMENT_BREAKPOINT(Obj self, Obj func)
-{ return SetValue(&every_step_function, func, "BREAKPOINT_DFEAULT_FILELINE"); }
+{ return SetValue(&every_step_function, func, "BREAKPOINT_DEFAULT_FILELINE"); }
 
 Obj SET_NEXT_ENTER_FUNCTION_BREAKPOINT(Obj self, Obj func)
 { return SetValue(&next_enter_function, func, "BREAKPOINT_DEFAULT_FUNCTION"); }
@@ -309,7 +309,7 @@ typedef Obj (* GVarFunc)(/*arguments*/);
 // Table of functions to export
 static StructGVarFunc GVarFuncs [] = {
     GVAR_FUNC_TABLE_ENTRY("debugger.c", ACTIVATE_DEBUGGING, 0, ""),
-    GVAR_FUNC_TABLE_ENTRY("debugger.c", DEACTIVATE_DEBUGGING, 0, "param, param2"),
+    GVAR_FUNC_TABLE_ENTRY("debugger.c", DEACTIVATE_DEBUGGING, 0, ""),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", GET_BREAKPOINTS, 0, ""),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", ADD_BREAKPOINT, 3, "file, line, func"),
     GVAR_FUNC_TABLE_ENTRY("debugger.c", SET_EVERY_STATEMENT_BREAKPOINT, -1, "func"),
