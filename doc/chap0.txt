@@ -1,1 +1,47 @@
-Placeholder
+  
+  
+                                   [1X debugger [101X
+  
+  
+                          [1X Debugging support for [5XGAP[105X [101X
+  
+  
+                                      0.2
+  
+  
+                                1 September 2017
+  
+  
+                             Christopher Jefferson
+  
+  
+  
+  Christopher Jefferson
+      Email:    [7Xmailto:caj21@st-andrews.ac.uk[107X
+      Homepage: [7Xhttp://caj.host.cs.st-andrews.ac.uk/[107X
+      Address:  [33X[0;14YSt Andrews[133X
+                [33X[0;14YScotland[133X
+                [33X[0;14YUK[133X
+  
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (debugger)[101X
+  
+  1 [33X[0;0Ydebugger automatic generated documentation[133X
+    1.1 [33X[0;0Ydebugger automatic generated documentation of global functions[133X
+      1.1-1 AddBreakpoint
+      1.1-2 ClearBreakpoint
+      1.1-3 ClearAllBreakpoints
+      1.1-4 ListBreakpoints
+      1.1-5 BreakNextLine
+      1.1-6 BreakEveryLine
+      1.1-7 BreakNextEnterFunction
+      1.1-8 BreakEveryEnterFunction
+      1.1-9 BreakNextLeaveFunction
+      1.1-10 BreakEveryLeaveFunction
+  
+  
+  [32X

@@ -1,0 +1,87 @@
+  
+  [1X1 [33X[0;0Ydebugger automatic generated documentation[133X[101X
+  
+  
+  [1X1.1 [33X[0;0Ydebugger automatic generated documentation of global functions[133X[101X
+  
+  [1X1.1-1 AddBreakpoint[101X
+  
+  [29X[2XAddBreakpoint[102X( [3Xfile[103X, [3Xline[103X[, [3Xfunction[103X] ) [32X function
+  
+  [33X[0;0YAdds  a  breakpoint  to all loaded files whose name ends [3Xfile[103X, at line [3Xline[103X.
+  Optionally  a [3Xfunction[103X to call can be given. The default function enters the
+  break loop.[133X
+  
+  [1X1.1-2 ClearBreakpoint[101X
+  
+  [29X[2XClearBreakpoint[102X( [3Xfile[103X, [3Xline[103X ) [32X function
+  
+  [33X[0;0YRemove all breakpoints in loaded files whose name ends [3Xfile[103X, at line [3Xline[103X.[133X
+  
+  [1X1.1-3 ClearAllBreakpoints[101X
+  
+  [29X[2XClearAllBreakpoints[102X(  ) [32X function
+  
+  [33X[0;0YRemove all breakpoints[133X
+  
+  [1X1.1-4 ListBreakpoints[101X
+  
+  [29X[2XListBreakpoints[102X(  ) [32X function
+  
+  [33X[0;0YList  all  breakpoints.  Returned  as a list of triples, consisting of file,
+  line, and the function called.[133X
+  
+  [1X1.1-5 BreakNextLine[101X
+  
+  [29X[2XBreakNextLine[102X( [[3Xfunction[103X] ) [32X function
+  
+  [33X[0;0YTriggers [3Xfunction[103X next time a new line of code begins execution. by default,
+  [3Xfunction[103X will enter the break loop. Breaking on the next line is disabled by
+  passing [12Xfail[112X. [3Xfunction[103X, if defined, should accept no arguments.[133X
+  
+  [1X1.1-6 BreakEveryLine[101X
+  
+  [29X[2XBreakEveryLine[102X( [[3Xfunction[103X] ) [32X function
+  
+  [33X[0;0YTriggers [3Xfunction[103X every time a new line of code begin execution. by default,
+  [3Xfunction[103X  will  enter  the break loop. Breaking on every line is disabled by
+  passing  [12Xfail[112X.  [3Xfunction[103X, if defined, should accept two arguments. These are
+  the  fileid  and line number. The fileid is an index into the array of files
+  returned by [11XGET_FILENAME_CACHE()[111X.[133X
+  
+  [1X1.1-7 BreakNextEnterFunction[101X
+  
+  [29X[2XBreakNextEnterFunction[102X( [[3Xfunc[103X] ) [32X function
+  
+  [33X[0;0YCalls  [3Xfunc[103X before the next time execution of a function begins. By default,
+  [3Xfunc[103X  will  enter  the break loop. Breaking on entry to the next function is
+  disabled  by  passing  [12Xfail[112X.  [3Xfunc[103X,  if defined, should accept one argument,
+  which will be the function being called.[133X
+  
+  [1X1.1-8 BreakEveryEnterFunction[101X
+  
+  [29X[2XBreakEveryEnterFunction[102X( [[3Xfunc[103X] ) [32X function
+  
+  [33X[0;0YCalls  [3Xfunc[103X  before  the  execution of any function begins. By default, [3Xfunc[103X
+  will  enter  the  break  loop. Breaking on entry to functions is disabled by
+  passing  [12Xfail[112X.  [3Xfunc[103X,  if defined, should accept one argument, which will be
+  the function being called.[133X
+  
+  [1X1.1-9 BreakNextLeaveFunction[101X
+  
+  [29X[2XBreakNextLeaveFunction[102X( [[3Xfunc[103X] ) [32X function
+  
+  [33X[0;0YCalls  [3Xfunc[103X  before  the next time execution of a function ends. By default,
+  [3Xfunc[103X  will  enter  the  break loop. Breaking on exit of the next function is
+  disabled  by  passing  [12Xfail[112X.  [3Xfunc[103X,  if defined, should accept one argument,
+  which will be the function which is returning.[133X
+  
+  [1X1.1-10 BreakEveryLeaveFunction[101X
+  
+  [29X[2XBreakEveryLeaveFunction[102X( [[3Xfunc[103X] ) [32X function
+  
+  [33X[0;0YCalls  [3Xfunc[103X before the execution of any function ends. By default, [3Xfunc[103X will
+  enter  the  break loop. Breaking on exit of functions is disabled by passing
+  [12Xfail[112X.  [3Xfunc[103X,  if  defined,  should  accept  one  argument, which will be the
+  function which is returning.[133X
+  
