@@ -15,7 +15,7 @@ DeclareGlobalFunction( "AddBreakpoint" );
 #! @Arguments file, line
 #! @Description
 #!   Remove all breakpoints in loaded files whose name
-#!   ends <A>file</A>, at line <A>line</A>.
+#!   ends <A>file</A> which occur at line <A>line</A>.
 DeclareGlobalFunction( "ClearBreakpoint" );
 
 #! @Arguments
@@ -25,7 +25,7 @@ DeclareGlobalFunction( "ClearAllBreakpoints" );
 
 #! @Arguments
 #! @Description
-#!   List all breakpoints. Returned as a list of
+#!   List all breakpoints. Returns a list of
 #!   triples, consisting of file, line, and the function
 #!   called.
 DeclareGlobalFunction( "ListBreakpoints" );

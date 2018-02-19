@@ -81,6 +81,26 @@ TestFile := "tst/testall.g",
 
 #Keywords := [ "TODO" ],
 
+AutoDoc := rec(                                                                   
+    TitlePage := rec(                                                             
+        Copyright := Concatenation(                                               
+            "&copyright; 2017-2019 by Christopher Jefferson<P/>\n\n",    
+            "This package may be distributed under the terms and conditions ",    
+            "of the GNU Public License Version 3.\n"                              
+            ),                                                                    
+        Abstract := Concatenation(                                                
+            "Debugger is a &GAP; package which help debugging GAP code, ",
+            "adding breakpoints and the ability to call a function on ",
+            "every line of code.\n"                                  
+            ),                                                                    
+        Acknowledgements := Concatenation(                                        
+            "This documentation was prepared using the ",                         
+            "&GAPDoc; package.\n",                           
+            "<P/>\n"                                                              
+            )                                                                     
+    )                                                                             
+),                                                                                
+
 ));
 
 
