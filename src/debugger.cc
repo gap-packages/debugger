@@ -116,12 +116,16 @@ void debugVisitStat(Stat stat)
 {
     if(disable_debugger)
         return;
-    Int file = FILENAMEID_STAT(stat);
+
+    Obj func = CURR_FUNC();
+    Obj body = BODY_FUNC(func);
+    Int file = GET_GAPNAMEID_BODY(body);
+
     Int line = LINE_STAT(stat);
-    std::pair<Int, Int> location(file, line);
     // skip if not valid
-    if(location == std::pair<Int,Int>(0,0))
+    if(file == 0 || line == 0)
         return;
+    std::pair<Int, Int> location(file, line);
     // Check we have moved line
     if(prevlocation == location)
         return;
