@@ -14,7 +14,7 @@ gap> gvar2 := "startval";;
 gap> func := function(x) Print("::", x, ":", gvar2, "\n"); end;;
 gap> BreakEveryEnterFunction(func); f(); BreakEveryEnterFunction(fail);
 ::function (  )
-    local  x;
+    local x;
     g( "A" );
     g( "B" );
     g( "C" );
@@ -48,7 +48,7 @@ end:B
     return;
 end:C
 ::function (  )
-    local  x;
+    local x;
     g( "A" );
     g( "B" );
     g( "C" );
