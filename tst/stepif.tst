@@ -1,5 +1,9 @@
 gap> LoadPackage("debugger", false);
 true
+gap> LoadPackage("io", false);
+true
+gap> IO_chdir(Filename(DirectoriesPackageLibrary("debugger", "tst")[1],""));
+true
 gap> ClearAllBreakpoints();
 gap> Read("testif.g");
 gap> func := function(x,y) Print("::", y, ":", gvar, "\n"); end;;
