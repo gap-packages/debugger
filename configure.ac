@@ -14,7 +14,6 @@ AC_CONFIG_SRCDIR([src/debugger.cc])
 AC_CONFIG_HEADER([src/pkgconfig.h:cnf/pkgconfig.h.in])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([cnf])
-m4_include([m4/ac_find_gap.m4])
 
 dnl ##
 dnl ## Get canonical host info
@@ -34,16 +33,19 @@ dnl ##
 AC_PROG_CXX
 AC_LANG([C++])
 
-dnl ##
-dnl ## Setup libtool (for building the GAP kernel extension)
-dnl ##
-LT_PREREQ([2.4.2])
-LT_INIT([disable-static dlopen win32-dll])
 
 dnl ##
 dnl ## Locate the GAP root dir
 dnl ##
 AC_FIND_GAP
+
+dnl ##
+dnl ## Set flags so libtool will use them
+dnl ##
+CFLAGS="$CFLAGS $GAP_CFLAGS"
+CPPFLAGS="$CPPFLAGS $GAP_CPPFLAGS"
+CXXFLAGS="$CXXFLAGS $GAP_CFLAGS"
+LDFLAGS="$LDFLAGS $GAP_LDFLAGS"
 
 dnl ##
 dnl ## Detect Windows resp. Cygwin
@@ -59,10 +61,13 @@ else
   AC_DEFINE(SYS_IS_CYGWIN32, 0, are we on CYGWIN?)
 fi
 
+
+
 dnl ##
-dnl ## Rebuild configure if VERSION file changes
+dnl ## Setup libtool (for building the GAP kernel extension)
 dnl ##
-AC_SUBST([CONFIG_STATUS_DEPENDENCIES], ['$(top_srcdir)/VERSION'])
+LT_PREREQ([2.4.2])
+LT_INIT([disable-static dlopen win32-dll])
 
 dnl ##
 dnl ## Output everything
