@@ -18,12 +18,8 @@ a function which will be called every before every line of GAP code.<P/>
 <Heading>Creating Breakpoints</Heading>
 
 Suppose you want to enter the break loop at a particular line
-of your existing code. You could edit your code and add a call to
-<Ref Func="Error" BookName="ref"/> at the place where you want to
-break, but that requires editing and realoading your code.
-
-Instead, we can use <Ref Func="AddBreakpoint"/>, which lets us
-set a filename and line to break at. When this line is reached, &GAP;
+of your existing code. We can use <Ref Func="AddBreakpoint"/>, which
+lets you set a filename and line to break at. When this line is reached, &GAP;
 will enter the break loop. For example:
 
 <Listing>
@@ -32,11 +28,12 @@ AddBreakpoint("lib/grp.g", 128);
 </Listing>
 
 All functions in the debugger package do not require a full filename,
-but will instead look for files which end in the passed in string.
+but will instead look for filenames which end with the given string.
 
-Once in the breakloop, we can optionally call
-<Ref Func="ClearAllBreakpoints"/> to remove the breakpoint and then
-use <Code>return;</Code> to continue execution.
+Once in the breakloop, use <Code>return;</Code> to continue execution.
+
+At any point, call <Ref Func="ClearAllBreakpoints"/> to remove all
+breakpoints.
 
 Like in standard debuggers, while in the break loop we can use the
 functions <Ref Func="BreakNextLine"/>,
@@ -44,6 +41,9 @@ functions <Ref Func="BreakNextLine"/>,
 <Ref Func="BreakNextLeaveFunction"/> to re-enter the break loop at
 the next line, next time we enter a function or next time we leave a
 function.
+
+The function <Ref Func="BreakEveryLine"> will make GAP enter
+the break loop after each line of code is executed.
 
 </Section>
 

@@ -1,5 +1,9 @@
 gap> LoadPackage("debugger", false);
 true
+gap> LoadPackage("io", false);
+true
+gap> IO_chdir(Filename(DirectoriesPackageLibrary("debugger", "tst")[1],""));
+true
 gap> ClearAllBreakpoints();
 gap> Read("testcode1.g");
 gap> AddBreakpoint("testcode1.g", 5, function() Print("5:",gvar,"\n"); end);

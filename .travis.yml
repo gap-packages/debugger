@@ -1,43 +1,38 @@
 language: cpp
 sudo: false
 
+env:
+  global:
+    - GAPROOT=gaproot
+    - COVDIR=coverage
+
 branches:
   except:
     - gh-pages
 
 matrix:
   include:
-    - os: linux
+    - env: GAPBRANCH="stable-4.9"
+    - env: CC=clang CXX=clang++
+      compiler: clang
+    - env:
       compiler: gcc
-      env: ABI=32 PKGOPTS="CFLAGS=-m32 LDFLAGS=-m32 LOPTS=-m32 CXXFLAGS=-m32"
+    - env: GAP_CONFIGFLAGS="--enable-checking"
+      compiler: gcc
+    - env: ABI=32
       addons:
         apt_packages:
+          - libcurl4-openssl-dev:i386
           - libgmp-dev:i386
+          - libreadline-dev:i386
           - gcc-multilib
           - g++-multilib
-          - libreadline-dev
-          - texinfo
-    - os: linux
-      compiler: gcc
-      addons:
-        apt_packages:
-          - libgmp-dev
-          - libreadline-dev
-          - texinfo
 
-install:
-  - git clone --depth=2 https://github.com/gap-system/gap.git -b master gapsrc
-  - pwd
-  - ( cd gapsrc && ./autogen.sh && ./configure && make configure && make -j2 && make bootstrap-pkg-minimal)
-  - ( cd gapsrc/pkg && git clone --depth=2 https://github.com/gap-packages/io && cd io && ./autogen.sh && ./configure ${PKGOPTS} && make )
-  - pwd
-  - ( ./autogen.sh && ./configure --with-gaproot=gapsrc ${PKGOPTS} && make )
-  - pwd
-  - ls
-  - ls gapsrc
-  - ls gapsrc/pkg
-  - echo ln -s $(pwd) gapsrc/pkg/debugger
-  - ln -s $(pwd) gapsrc/pkg/debugger
-
+before_script:
+  - export GAPROOT="$HOME/gap"
+  - scripts/build_gap.sh
 script:
-  - (cd tst; ../gapsrc/bin/gap.sh testall.g)
+  - scripts/build_pkg.sh && scripts/run_tests.sh
+after_script:
+  - bash scripts/gather-coverage.sh
+  - bash <(curl -s https://codecov.io/bash)
