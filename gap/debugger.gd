@@ -97,3 +97,11 @@ DeclareGlobalFunction( "BreakNextLeaveFunction" );
 #!   <A>func</A>, if defined, should accept one argument, which
 #!   will be the function which is returning.
 DeclareGlobalFunction( "BreakEveryLeaveFunction" );
+
+
+#! @Section Information in the Break loop
+
+#! @Description
+#!      Show arguments and local variables of the current function,
+#!      and their current values
+DeclareGlobalFunction( "ShowLocals");

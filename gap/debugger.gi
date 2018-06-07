@@ -105,3 +105,45 @@ end;
 BREAKPOINT_NO_ARGS := function()
 	Error("Breakpoint");
 end;
+
+
+InstallGlobalFunction( "ShowLocals", function()
+    local lvars, argcount, variadic, value, i;
+    lvars := ErrorLVars;
+    if lvars = fail then
+        ErrorNoReturn("ShowLocals must be run from break loop or a function");
+    fi;
+    lvars := ContentsLVars(lvars);
+    if not IsRecord(lvars) then
+        ErrorNoReturn("ShowLocals unable to read local variables");
+    fi;
+    argcount := NumberArgumentsFunction(lvars.func);
+    variadic := false;
+    if argcount < 0 then
+        argcount := -argcount;
+        variadic := true;
+    fi;
+
+    if variadic then
+        PrintFormatted("Variadic function with at least {} arguments\n", argcount-1);
+    else
+        PrintFormatted("Function with {} arguments\n", argcount);
+    fi;
+    for i in [1..argcount] do
+        if IsBound(lvars.values[i]) then
+            value := lvars.values[i];
+        else
+            value := "<unbound>";
+        fi;
+        PrintFormatted(" {}: {}\n", lvars.names[i], value);
+    od;
+    Print("Local variables:\n");
+    for i in [argcount+1..Length(lvars.names)] do
+        if IsBound(lvars.values[i]) then
+            value := lvars.values[i];
+        else
+            value := "<unbound>";
+        fi;
+        PrintFormatted(" {}: {}\n", lvars.names[i], value);
+    od;
+end);
