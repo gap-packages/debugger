@@ -6,10 +6,10 @@
                           [1X Debugging support for [5XGAP[105X [101X
   
   
-                                      0.2
+                                      0.3
   
   
-                                1 September 2017
+                                  8 June 2018
   
   
                              Christopher Jefferson
@@ -26,22 +26,46 @@
   
   
   -------------------------------------------------------
+  [1XAbstract[101X
+  [33X[0;0YDebugger  is a [5XGAP[105X package which help debugging GAP code, adding breakpoints
+  and the ability to call a function on every line of code.[133X
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2017-2019 by Christopher Jefferson[133X
+  
+  [33X[0;0YThis  package  may  be distributed under the terms and conditions of the GNU
+  Public License Version 3.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YThis documentation was prepared using the [5XGAPDoc[105X package.[133X
+  
+  
+  -------------------------------------------------------
   
   
   [1XContents (debugger)[101X
   
-  1 [33X[0;0Ydebugger automatic generated documentation[133X
-    1.1 [33X[0;0Ydebugger automatic generated documentation of global functions[133X
-      1.1-1 AddBreakpoint
-      1.1-2 ClearBreakpoint
-      1.1-3 ClearAllBreakpoints
-      1.1-4 ListBreakpoints
-      1.1-5 BreakNextLine
-      1.1-6 BreakEveryLine
-      1.1-7 BreakNextEnterFunction
-      1.1-8 BreakEveryEnterFunction
-      1.1-9 BreakNextLeaveFunction
-      1.1-10 BreakEveryLeaveFunction
+  1 [33X[0;0YGetting started using debugger[133X
+    1.1 [33X[0;0YCreating Breakpoints[133X
+    1.2 [33X[0;0YCalling Functions[133X
+  2 [33X[0;0YFunctionality[133X
+    2.1 [33X[0;0YFunction Descriptions[133X
+      2.1-1 AddBreakpoint
+      2.1-2 ClearBreakpoint
+      2.1-3 ClearAllBreakpoints
+      2.1-4 ListBreakpoints
+      2.1-5 BreakNextLine
+      2.1-6 BreakEveryLine
+      2.1-7 BreakNextEnterFunction
+      2.1-8 BreakEveryEnterFunction
+      2.1-9 BreakNextLeaveFunction
+      2.1-10 BreakEveryLeaveFunction
+    2.2 [33X[0;0YInformation in the Break loop[133X
+      2.2-1 ShowLocals
   
   
   [32X

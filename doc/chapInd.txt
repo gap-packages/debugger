@@ -2,16 +2,17 @@
   
   [1XIndex[101X
   
-  [2XAddBreakpoint[102X  1.1-1
-  [2XBreakEveryEnterFunction[102X  1.1-8
-  [2XBreakEveryLeaveFunction[102X  1.1-10
-  [2XBreakEveryLine[102X  1.1-6
-  [2XBreakNextEnterFunction[102X  1.1-7
-  [2XBreakNextLeaveFunction[102X  1.1-9
-  [2XBreakNextLine[102X  1.1-5
-  [2XClearAllBreakpoints[102X  1.1-3
-  [2XClearBreakpoint[102X  1.1-2
-  [2XListBreakpoints[102X  1.1-4
+  [2XAddBreakpoint[102X 2.1-1 
+  [2XBreakEveryEnterFunction[102X 2.1-8 
+  [2XBreakEveryLeaveFunction[102X 2.1-10 
+  [2XBreakEveryLine[102X 2.1-6 
+  [2XBreakNextEnterFunction[102X 2.1-7 
+  [2XBreakNextLeaveFunction[102X 2.1-9 
+  [2XBreakNextLine[102X 2.1-5 
+  [2XClearAllBreakpoints[102X 2.1-3 
+  [2XClearBreakpoint[102X 2.1-2 
+  [2XListBreakpoints[102X 2.1-4 
+  [2XShowLocals[102X 2.2-1 
   
   
   -------------------------------------------------------

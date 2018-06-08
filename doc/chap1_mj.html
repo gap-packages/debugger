@@ -6,9 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<title>GAP (debugger) - Chapter 1: debugger automatic generated documentation</title>
+<title>GAP (debugger) - Chapter 1: Getting started using debugger</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -18,110 +18,64 @@
 <body class="chap1"  onload="jscontent()">
 
 
-<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
-<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd_mj.html">[Next Chapter]</a>&nbsp;  </div>
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
 
 <p id="mathjaxlink" class="pcenter"><a href="chap1.html">[MathJax off]</a></p>
-<p><a id="X7CBF02EE84D9926B" name="X7CBF02EE84D9926B"></a></p>
-<div class="ChapSects"><a href="chap1_mj.html#X7CBF02EE84D9926B">1 <span class="Heading">debugger automatic generated documentation</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7A3A477E8321B665">1.1 <span class="Heading">debugger automatic generated documentation of global functions</span></a>
+<p><a id="X7CC0EB658134CED7" name="X7CC0EB658134CED7"></a></p>
+<div class="ChapSects"><a href="chap1_mj.html#X7CC0EB658134CED7">1 <span class="Heading">Getting started using debugger</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7AD9E1D87F1C6CD7">1.1 <span class="Heading">Creating Breakpoints</span></a>
 </span>
-<div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X83D5CA568561FD13">1.1-1 AddBreakpoint</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X86FC8DC6840A3E32">1.1-2 ClearBreakpoint</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X80AABDFE853C0346">1.1-3 ClearAllBreakpoints</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7DBB57D785DA6C1E">1.1-4 ListBreakpoints</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7E88B70F81EFF723">1.1-5 BreakNextLine</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X7C96660A784E004B">1.1-6 BreakEveryLine</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X85B94E7187CEC735">1.1-7 BreakNextEnterFunction</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X80AB5615829E59FF">1.1-8 BreakEveryEnterFunction</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X8760A34283DD1198">1.1-9 BreakNextLeaveFunction</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1_mj.html#X8272BB2684FA2995">1.1-10 BreakEveryLeaveFunction</a></span>
-</div></div>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X815CC28E8535ADC2">1.2 <span class="Heading">Calling Functions</span></a>
+</span>
+</div>
 </div>
 
-<h3>1 <span class="Heading">debugger automatic generated documentation</span></h3>
+<h3>1 <span class="Heading">Getting started using debugger</span></h3>
 
-<p><a id="X7A3A477E8321B665" name="X7A3A477E8321B665"></a></p>
+<p>Debugger is a <strong class="pkg">GAP</strong> package which advanced some advanced debugging functionality to GAP. It does not replace GAP's builtin break loop, but provides new ways to access the break loop.</p>
 
-<h4>1.1 <span class="Heading">debugger automatic generated documentation of global functions</span></h4>
+<p>In this chapter we describe a couple of different uses of debugger. First, we explain in Section <a href="chap1_mj.html#X7AD9E1D87F1C6CD7"><span class="RefLink">1.1</span></a> how to set breakpoints.</p>
 
-<p><a id="X83D5CA568561FD13" name="X83D5CA568561FD13"></a></p>
+<p>Then we show in Section <a href="chap1_mj.html#X815CC28E8535ADC2"><span class="RefLink">1.2</span></a> how to create a function which will be called every before every line of GAP code.</p>
 
-<h5>1.1-1 AddBreakpoint</h5>
+<p><a id="X7AD9E1D87F1C6CD7" name="X7AD9E1D87F1C6CD7"></a></p>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AddBreakpoint</code>( <var class="Arg">file</var>, <var class="Arg">line</var>[, <var class="Arg">function</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Adds a breakpoint to all loaded files whose name ends <var class="Arg">file</var>, at line <var class="Arg">line</var>. Optionally a <var class="Arg">function</var> to call can be given. The default function enters the break loop.</p>
+<h4>1.1 <span class="Heading">Creating Breakpoints</span></h4>
 
-<p><a id="X86FC8DC6840A3E32" name="X86FC8DC6840A3E32"></a></p>
-
-<h5>1.1-2 ClearBreakpoint</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClearBreakpoint</code>( <var class="Arg">file</var>, <var class="Arg">line</var> )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Remove all breakpoints in loaded files whose name ends <var class="Arg">file</var>, at line <var class="Arg">line</var>.</p>
-
-<p><a id="X80AABDFE853C0346" name="X80AABDFE853C0346"></a></p>
-
-<h5>1.1-3 ClearAllBreakpoints</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClearAllBreakpoints</code>(  )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Remove all breakpoints</p>
-
-<p><a id="X7DBB57D785DA6C1E" name="X7DBB57D785DA6C1E"></a></p>
-
-<h5>1.1-4 ListBreakpoints</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ListBreakpoints</code>(  )</td><td class="tdright">( function )</td></tr></table></div>
-<p>List all breakpoints. Returned as a list of triples, consisting of file, line, and the function called.</p>
-
-<p><a id="X7E88B70F81EFF723" name="X7E88B70F81EFF723"></a></p>
-
-<h5>1.1-5 BreakNextLine</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BreakNextLine</code>( [<var class="Arg">function</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Triggers <var class="Arg">function</var> next time a new line of code begins execution. by default, <var class="Arg">function</var> will enter the break loop. Breaking on the next line is disabled by passing <strong class="button">fail</strong>. <var class="Arg">function</var>, if defined, should accept no arguments.</p>
-
-<p><a id="X7C96660A784E004B" name="X7C96660A784E004B"></a></p>
-
-<h5>1.1-6 BreakEveryLine</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BreakEveryLine</code>( [<var class="Arg">function</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Triggers <var class="Arg">function</var> every time a new line of code begin execution. by default, <var class="Arg">function</var> will enter the break loop. Breaking on every line is disabled by passing <strong class="button">fail</strong>. <var class="Arg">function</var>, if defined, should accept two arguments. These are the fileid and line number. The fileid is an index into the array of files returned by <code class="file">GET_FILENAME_CACHE()</code>.</p>
-
-<p><a id="X85B94E7187CEC735" name="X85B94E7187CEC735"></a></p>
-
-<h5>1.1-7 BreakNextEnterFunction</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BreakNextEnterFunction</code>( [<var class="Arg">func</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Calls <var class="Arg">func</var> before the next time execution of a function begins. By default, <var class="Arg">func</var> will enter the break loop. Breaking on entry to the next function is disabled by passing <strong class="button">fail</strong>. <var class="Arg">func</var>, if defined, should accept one argument, which will be the function being called.</p>
-
-<p><a id="X80AB5615829E59FF" name="X80AB5615829E59FF"></a></p>
-
-<h5>1.1-8 BreakEveryEnterFunction</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BreakEveryEnterFunction</code>( [<var class="Arg">func</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Calls <var class="Arg">func</var> before the execution of any function begins. By default, <var class="Arg">func</var> will enter the break loop. Breaking on entry to functions is disabled by passing <strong class="button">fail</strong>. <var class="Arg">func</var>, if defined, should accept one argument, which will be the function being called.</p>
-
-<p><a id="X8760A34283DD1198" name="X8760A34283DD1198"></a></p>
-
-<h5>1.1-9 BreakNextLeaveFunction</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BreakNextLeaveFunction</code>( [<var class="Arg">func</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Calls <var class="Arg">func</var> before the next time execution of a function ends. By default, <var class="Arg">func</var> will enter the break loop. Breaking on exit of the next function is disabled by passing <strong class="button">fail</strong>. <var class="Arg">func</var>, if defined, should accept one argument, which will be the function which is returning.</p>
-
-<p><a id="X8272BB2684FA2995" name="X8272BB2684FA2995"></a></p>
-
-<h5>1.1-10 BreakEveryLeaveFunction</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BreakEveryLeaveFunction</code>( [<var class="Arg">func</var>] )</td><td class="tdright">( function )</td></tr></table></div>
-<p>Calls <var class="Arg">func</var> before the execution of any function ends. By default, <var class="Arg">func</var> will enter the break loop. Breaking on exit of functions is disabled by passing <strong class="button">fail</strong>. <var class="Arg">func</var>, if defined, should accept one argument, which will be the function which is returning.</p>
+<p>Suppose you want to enter the break loop at a particular line of your existing code. We can use <code class="func">AddBreakpoint</code> (<a href="chap2_mj.html#X83D5CA568561FD13"><span class="RefLink">2.1-1</span></a>), which lets you set a filename and line to break at. When this line is reached, <strong class="pkg">GAP</strong> will enter the break loop. For example:</p>
 
 
-<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd_mj.html">[Next Chapter]</a>&nbsp;  </div>
+<div class="example"><pre>
+AddBreakpoint("mycode.g", 54);
+AddBreakpoint("lib/grp.g", 128);
+</pre></div>
+
+<p>All functions in the debugger package do not require a full filename, but will instead look for filenames which end with the given string. Once in the breakloop, use <code class="code">return;</code> to continue execution. At any point, call <code class="func">ClearAllBreakpoints</code> (<a href="chap2_mj.html#X80AABDFE853C0346"><span class="RefLink">2.1-3</span></a>) to remove all breakpoints. Like in standard debuggers, while in the break loop we can use the functions <code class="func">BreakNextLine</code> (<a href="chap2_mj.html#X7E88B70F81EFF723"><span class="RefLink">2.1-5</span></a>), <code class="func">BreakNextEnterFunction</code> (<a href="chap2_mj.html#X85B94E7187CEC735"><span class="RefLink">2.1-7</span></a>) and <code class="func">BreakNextLeaveFunction</code> (<a href="chap2_mj.html#X8760A34283DD1198"><span class="RefLink">2.1-9</span></a>) to re-enter the break loop at the next line, next time we enter a function or next time we leave a function. The function <code class="func">BreakEveryLine</code> (<a href="chap2_mj.html#X7C96660A784E004B"><span class="RefLink">2.1-6</span></a>) will make GAP enter the break loop after each line of code is executed.</p>
+
+<p><a id="X815CC28E8535ADC2" name="X815CC28E8535ADC2"></a></p>
+
+<h4>1.2 <span class="Heading">Calling Functions</span></h4>
+
+<p>Instead of entering the break loop, we can instead call a function when a particular line is reached, or after every line. Each function in the debugger package optionally takes a function to be called, instead of entering the break loop. For example, consider that we want to find exactly which part of GAP sets the size of a group <code class="code">G</code>. We can call:</p>
 
 
-<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+<div class="example"><pre>
+func := function(file,line)
+  if HasSize(G) then Error("Size set!"); fi;
+end;
+BreakEveryLine(func);
+</pre></div>
+
+<p>This will call <code class="code">func</code> before every line of GAP code is executed, entering the break loop when the size of <code class="code">G</code> is set.</p>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap2_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapInd_mj.html">Ind</a>  </div>
 
 <hr />
 <p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>

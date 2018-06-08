@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "debugger",
 Subtitle := "Debugging support for GAP",
-Version := "0.2",
-Date := "01/09/2017", # dd/mm/yyyy format
+Version := "0.3",
+Date := "08/06/2018", # dd/mm/yyyy format
 
 Persons := [
   rec(
@@ -80,6 +80,26 @@ AvailabilityTest := function()
 TestFile := "tst/testall.g",
 
 #Keywords := [ "TODO" ],
+
+AutoDoc := rec(                                                                   
+    TitlePage := rec(                                                             
+        Copyright := Concatenation(                                               
+            "&copyright; 2017-2019 by Christopher Jefferson<P/>\n\n",    
+            "This package may be distributed under the terms and conditions ",    
+            "of the GNU Public License Version 3.\n"                              
+            ),                                                                    
+        Abstract := Concatenation(                                                
+            "Debugger is a &GAP; package which help debugging GAP code, ",
+            "adding breakpoints and the ability to call a function on ",
+            "every line of code.\n"                                  
+            ),                                                                    
+        Acknowledgements := Concatenation(                                        
+            "This documentation was prepared using the ",                         
+            "&GAPDoc; package.\n",                           
+            "<P/>\n"                                                              
+            )                                                                     
+    )                                                                             
+),                                                                                
 
 ));
 

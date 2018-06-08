@@ -1,6 +1,6 @@
 name: debugger
-version: 0.2
-date: 2017-09-01
+version: 0.3
+date: 2018-06-08
 description: |
     Debugging support for GAP
 
@@ -25,7 +25,7 @@ packageinfo: https://gap-packages.github.io/debugger/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/debugger/releases/download/v0.2/debugger-0.2.tar.gz
+      url: https://github.com/gap-packages/debugger/releases/download/v0.3/debugger-0.3.tar.gz
 
 abstract: |
 
