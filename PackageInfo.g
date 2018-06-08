@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "debugger",
 Subtitle := "Debugging support for GAP",
-Version := "0.2",
-Date := "01/09/2017", # dd/mm/yyyy format
+Version := "0.3",
+Date := "08/06/2018", # dd/mm/yyyy format
 
 Persons := [
   rec(

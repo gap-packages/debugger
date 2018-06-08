@@ -42,7 +42,7 @@ functions <Ref Func="BreakNextLine"/>,
 the next line, next time we enter a function or next time we leave a
 function.
 
-The function <Ref Func="BreakEveryLine"> will make GAP enter
+The function <Ref Func="BreakEveryLine"/> will make GAP enter
 the break loop after each line of code is executed.
 
 </Section>
@@ -60,7 +60,7 @@ sets the size of a group <Code>G</Code>. We can call:
 
 <Listing>
 func := function(file,line)
-  if HasSize(G) then Error("Size set!); fi;
+  if HasSize(G) then Error("Size set!"); fi;
 end;
 BreakEveryLine(func);
 </Listing>

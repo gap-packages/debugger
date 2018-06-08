@@ -3,6 +3,9 @@
 #
 # Declarations
 #
+#! @Chapter Functionality
+#!
+#! @Section Function Descriptions
 
 #! @Arguments file, line [ , function]
 #! @Description
