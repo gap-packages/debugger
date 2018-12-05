@@ -283,6 +283,18 @@ Obj GET_BREAKPOINTS(Obj self)
     return GAP_make(break_points);
 }
 
+#if GAP_KERNEL_MAJOR_VERSION >= 6
+struct InterpreterHooks debugHooks =
+{
+    debugVisitStat,
+    0,
+    debugEnterFunction,
+    debugLeaveFunction,
+    0,
+    0,
+    "debugger"
+};
+#else
 struct InterpreterHooks debugHooks =
 {
     debugVisitStat,
@@ -291,7 +303,7 @@ struct InterpreterHooks debugHooks =
     0,
     "debugger"
 };
-
+#endif
 Obj ACTIVATE_DEBUGGING(Obj self)
 {
     return ActivateHooks(&debugHooks) ? True : False;
