@@ -12,6 +12,7 @@ PackageName := "debugger",
 Subtitle := "Debugging support for GAP",
 Version := "0.3",
 Date := "08/06/2018", # dd/mm/yyyy format
+License := "MPL-2.0",
 
 Persons := [
   rec(
