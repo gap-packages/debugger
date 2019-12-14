@@ -1,24 +1,14 @@
 dist: xenial
 language: cpp
-sudo: false
-
-env:
-  global:
-    - GAPROOT=gaproot
-    - COVDIR=coverage
-
-branches:
-  except:
-    - gh-pages
 
 matrix:
   include:
-    - env: GAPBRANCH="stable-4.10"
-    - env:
-      compiler: gcc
-    - env: GAP_CONFIGFLAGS="--enable-checking"
-      compiler: gcc
-    - env: ABI=32
+    - env: GAPBRANCH=master
+    - env: GAPBRANCH=master GAP_CONFIGFLAGS="--enable-checking"
+    - env: GAPBRANCH=stable-4.11
+    - env: GAPBRANCH=stable-4.10
+    - env: GAPBRANCH=stable-4.9
+    - env: GAPBRANCH=master ABI=32
       addons:
         apt_packages:
           - libcurl4-openssl-dev:i386
@@ -27,12 +17,15 @@ matrix:
           - gcc-multilib
           - g++-multilib
 
+branches:
+  only:
+    - master
+
 before_script:
-  - export GAPROOT="$HOME/gap"
   - git clone https://github.com/gap-system/pkg-ci-scripts.git scripts
   - scripts/build_gap.sh
 script:
   - scripts/build_pkg.sh && scripts/run_tests.sh
 after_script:
-  - bash scripts/gather-coverage.sh
+  - scripts/gather-coverage.sh
   - bash <(curl -s https://codecov.io/bash)
