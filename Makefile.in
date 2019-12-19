@@ -1,0 +1,10 @@
+#
+# Makefile rules for the debugger package
+#
+KEXT_NAME = debugger
+KEXT_SOURCES = src/debugger.cc
+KEXT_LDFLAGS = -lstdc++
+
+# include shared GAP package build system
+GAPPATH = @GAPPATH@
+include Makefile.gappkg

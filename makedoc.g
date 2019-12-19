@@ -14,6 +14,3 @@ AutoDoc(rec(
     )
     
 ));
-
-PrintTo("VERSION", PackageInfo("debugger")[1].Version);
-
