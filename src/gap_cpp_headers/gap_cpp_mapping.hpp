@@ -8,6 +8,7 @@
 #include <deque>
 #include <list>
 #include <utility>
+#include <stdlib.h>
 
 // We have to include this to get around problems with the 'extern C' wrapping of src/compiled.h,
 // which includes gmp, which in C++ mode has some C++ templates.
