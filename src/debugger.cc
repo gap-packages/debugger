@@ -11,6 +11,7 @@
 extern "C" {
 #include "src/compiled.h"          /* GAP headers                */
 #include "src/hookintrprtr.h"
+#include "src/sysjmp.h"
 }
 
 #include "gap_cpp_headers/gap_cpp_mapping.hpp"
