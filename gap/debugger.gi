@@ -61,8 +61,8 @@ function(fileend, line)
 	fi;
 
 	for i in hitfiles do
-		if CLEAR_BREAKPOINT(i, line, func) then
-			Print("Removing breakpoint from ", filelist[i], ":", line);
+		if CLEAR_BREAKPOINT(i, line) then
+			Print("Removing breakpoint from ", filelist[i], ":", line, "\n");
 		fi;
 	od;
 end);
