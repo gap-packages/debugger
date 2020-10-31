@@ -13,7 +13,6 @@ matrix:
     - env: GAPBRANCH=master GAP_CONFIGFLAGS="--enable-checking"
     - env: GAPBRANCH=stable-4.11
     - env: GAPBRANCH=stable-4.10
-    - env: GAPBRANCH=stable-4.9
     - env: GAPBRANCH=master ABI=32
       addons:
         apt_packages:
