@@ -10,8 +10,8 @@ SetPackageInfo( rec(
 
 PackageName := "debugger",
 Subtitle := "Debugging support for GAP",
-Version := "0.3",
-Date := "08/06/2018", # dd/mm/yyyy format
+Version := "0.4",
+Date := "13/02/2021", # dd/mm/yyyy format
 License := "MPL-2.0",
 
 Persons := [
