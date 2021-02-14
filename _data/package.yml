@@ -1,6 +1,6 @@
 name: debugger
-version: 0.3
-date: 2018-06-08
+version: 0.4
+date: 2021-02-13
 description: |
     Debugging support for GAP
 
@@ -12,7 +12,7 @@ maintainers:
     - name: Christopher Jefferson
       url: http://caj.host.cs.st-andrews.ac.uk/
 
-GAP: ">= 4.8"
+GAP: ">= 4.10"
 
 needed-pkgs:
     - name: "GAPDoc"
@@ -25,7 +25,7 @@ packageinfo: https://gap-packages.github.io/debugger/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/gap-packages/debugger/releases/download/v0.3/debugger-0.3.tar.gz
+      url: https://github.com/gap-packages/debugger/releases/download/v0.4/debugger-0.4.tar.gz
 
 abstract: |
 
