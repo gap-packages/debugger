@@ -5,9 +5,6 @@
 extern "C" {
 #include "src/compiled.h"          /* GAP headers                */
 #include "src/hookintrprtr.h"
-#if GAP_KERNEL_MAJOR_VERSION >= 8
-#include "src/sysjmp.h"
-#endif
 }
 
 #include "gap_cpp_headers/gap_cpp_mapping.hpp"
@@ -54,7 +51,7 @@ static Int disable_debugger;
 // If GAP ever longjmps, let's re-enable the debugger. This isn't perfect,
 // but stops the debugger apparently dying.
 extern "C" {
-void resetDebuggerOnLongjmp()
+void resetDebuggerOnThrow(int depth)
 { disable_debugger = 0; }
 
 void resetDebuggerOnBreakLoop(Int i)
@@ -358,7 +355,7 @@ static Int InitLibrary( StructInitInfo *module )
 
     breakpoint_functions = NEW_PLIST(T_PLIST, 0);
 
-    RegisterSyLongjmpObserver(resetDebuggerOnLongjmp);
+    RegisterThrowObserver(resetDebuggerOnThrow);
     RegisterBreakloopObserver(resetDebuggerOnBreakLoop);
 
 
