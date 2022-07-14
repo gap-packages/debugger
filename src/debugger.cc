@@ -74,7 +74,7 @@ Obj DEACTIVATE_DEBUGGING(Obj self);
 // TODO: Improve, error checking
 void ConsiderEnableDisableDebugging()
 {
-    bool breakpoint = (!break_points.empty() || 
+    bool breakpoint = (!break_points.empty() ||
                         every_step_function || next_step_function ||
                         every_enter_function || next_enter_function ||
                         every_leave_function || next_leave_function);
