@@ -82,30 +82,21 @@ void ConsiderEnableDisableDebugging()
 static void callDebugFunction0(Obj funcobj)
 {
     disable_debugger = 1;
-    typedef Obj(*FuncPtr)(Obj);
-    ObjFunc hdlrfunc = HDLR_FUNC(funcobj,0);
-    FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
-    (*funcptr)(funcobj);
+    CALL_0ARGS(funcobj);
     disable_debugger = 0;
 }
 
 static void callDebugFunction1(Obj funcobj, Obj val)
 {
     disable_debugger = 1;
-    typedef Obj(*FuncPtr)(Obj, Obj);
-    ObjFunc hdlrfunc = HDLR_FUNC(funcobj,1);
-    FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
-    (*funcptr)(funcobj, val);
+    CALL_1ARGS(funcobj, val);
     disable_debugger = 0;
 }
 
 static void callDebugFunction2(Obj funcobj, Obj val1, Obj val2)
 {
     disable_debugger = 1;
-    typedef Obj(*FuncPtr)(Obj, Obj, Obj);
-    ObjFunc hdlrfunc = HDLR_FUNC(funcobj,2);
-    FuncPtr funcptr = reinterpret_cast<FuncPtr>(hdlrfunc);
-    (*funcptr)(funcobj, val1, val2);
+    CALL_2ARGS(funcobj, val1, val2);
     disable_debugger = 0;
 }
 
