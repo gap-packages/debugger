@@ -1,5 +1,6 @@
 name: debugger
-version: 0.4
+version: "0.4"
+license: "MPL-2.0"
 date: 2021-02-13
 description: |
     Debugging support for GAP
@@ -32,3 +33,27 @@ abstract: |
 status: dev
 doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
+citeas: |
+    <p class='BibEntry'>
+    [<span class='BibKey'>Jef21</span>]   <b class='BibAuthor'>Jefferson, C.</b>,
+     <i class='BibTitle'>debugger, Debugging support for GAP,
+             Version 0.4</i>
+     (<span class='BibYear'>2021</span>)<br />
+    (<span class='BibNote'>GAP package</span>),
+    <span class='BibHowpublished'><a href="https://gap-packages.github.io/debugger/">https://gap-packages.github.io/debugger/</a></span>.
+    </p>
+    
+
+bibtex: |
+    @misc{ debugger0.4,
+      author =           {Jefferson, C.},
+      title =            {{debugger}, Debugging support for GAP, {V}ersion 0.4},
+      month =            {Feb},
+      year =             {2021},
+      note =             {GAP package},
+      howpublished =     {\href       {https://gap-packages.github.io/debugger/}
+                          {\texttt{https://gap-packages.github.io/}\discretionary
+                          {}{}{}\texttt{debugger/}}},
+      printedkey =       {Jef21}
+    }
+
