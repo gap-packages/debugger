@@ -3,8 +3,8 @@
  */
 
 extern "C" {
-#include "src/compiled.h"          /* GAP headers                */
-#include "src/hookintrprtr.h"
+#include "gap_all.h"   // GAP headers
+#include "hookintrprtr.h"
 }
 
 #include "gap_cpp_headers/gap_cpp_mapping.hpp"
