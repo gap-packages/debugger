@@ -291,12 +291,22 @@ struct InterpreterHooks debugHooks =
 #endif
 Obj ACTIVATE_DEBUGGING(Obj self)
 {
+#if GAP_KERNEL_MAJOR_VERSION >= 8
+    ActivateHooks(&debugHooks);
+    return True;
+#else
     return ActivateHooks(&debugHooks) ? True : False;
+#endif
 }
 
 Obj DEACTIVATE_DEBUGGING(Obj self)
 {
+#if GAP_KERNEL_MAJOR_VERSION >= 8
+    DeactivateHooks(&debugHooks);
+    return True;
+#else
     return DeactivateHooks(&debugHooks) ? True : False;
+#endif
 }
 
 typedef Obj (* GVarFunc)(/*arguments*/);
